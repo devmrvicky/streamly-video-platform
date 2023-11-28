@@ -1,0 +1,11 @@
+{
+  "name": "03streamly",
+  "version": "1.0.0",
+  "description": "a video streaming platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vicky k.",
+  "license": "ISC"
+}
