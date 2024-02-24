@@ -36,7 +36,7 @@ const CustomFormField = ({
                     placeholder={placeholder}
                     {...field}
                     type={type}
-                    className="dark:border-white"
+                    className="dark:border-white mt-0"
                     required
                   />
                 )}

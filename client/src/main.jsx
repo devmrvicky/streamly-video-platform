@@ -9,12 +9,63 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import RegisterForm from "./components/form/RegisterForm.jsx";
+import { Explore, History, Home, Shorts, Library } from "@/components/pages";
+import ContentLayout from "./components/layout/ContentLayout.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<App />}>
-        <Route path="/user/register" element={<RegisterForm />} />
+        {/* page */}
+        <Route
+          path=""
+          element={
+            <ContentLayout>
+              <Home />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="/shorts"
+          element={
+            <ContentLayout>
+              <Shorts />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <ContentLayout>
+              <Explore />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ContentLayout>
+              <History />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="/library"
+          element={
+            <ContentLayout>
+              <Library />
+            </ContentLayout>
+          }
+        />
+        {/* auth */}
+        <Route
+          path="/user/register"
+          element={
+            <ContentLayout>
+              <RegisterForm />
+            </ContentLayout>
+          }
+        />
       </Route>
     </Route>
   )
