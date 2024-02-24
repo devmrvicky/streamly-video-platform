@@ -1,4 +1,6 @@
+import { Outlet } from "react-router-dom";
 import api from "./axios/api";
+import RegisterForm from "./components/form/RegisterForm";
 
 function App() {
   const handleClick = async () => {
@@ -9,7 +11,12 @@ function App() {
       console.log(error.message);
     }
   };
-  return <button onClick={handleClick}>click me</button>;
+  return (
+    <div>
+      <button onClick={handleClick}>click me</button>
+      <Outlet />
+    </div>
+  );
 }
 
 export default App;

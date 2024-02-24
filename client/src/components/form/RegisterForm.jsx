@@ -5,7 +5,7 @@ import CustomFormField from "../custom/CustomFormField";
 import { Button } from "../ui/button";
 import CustomAvatar from "../custom/CustomAvatar";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const form = useForm();
   const handleLogin = (data) => {
     console.log(data);
@@ -52,4 +52,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
