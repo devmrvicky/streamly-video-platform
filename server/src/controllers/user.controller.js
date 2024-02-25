@@ -18,25 +18,13 @@ const generateRefreshAndAccessToken = async (user) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  // await res.status(200).json({
-  //   message: "chai aur code",
-  // });
-  // user register steps
-  // step 1 : Get user's details such fullName, email, userName, password
-  // step 2 : Validation if details are not empty
-  // step 3 : Check user is already exit: from email and userName
-  // step 4 : Check for image and avatar
-  // step 5 : Upload them on cloudinary
-  // step 6 : Create user object and entry on db
-  // step 7 : Remove encrypted password and refresh token field from response
-  // step 8 : Check user creation and if return response
-  const { userName, fullName, email, password } = req.body;
+  const { username, fullName, email, password } = req.body;
   if (
-    [userName, fullName, email, password].some((field) => field.trim() === "")
+    [username, fullName, email, password].some((field) => field.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
-  const existedUser = await User.findOne({ $or: [{ userName }, { email }] });
+  const existedUser = await User.findOne({ $or: [{ username }, { email }] });
   if (existedUser) {
     throw new ApiError(409, "User is already exits.");
   }
@@ -62,7 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!avatar) throw new ApiError(400, "Avatar image is required");
   // create user obj and entry on db
   const user = await User.create({
-    userName,
+    username,
     email,
     fullName,
     password,
@@ -84,14 +72,14 @@ const registerUser = asyncHandler(async (req, res) => {
 // login user
 const loginUser = asyncHandler(async (req, res) => {
   // get data from user
-  const { userName, email, password } = req.body;
+  const { username, email, password } = req.body;
   // check validation of data
-  if (userName === "" || email === "") {
+  if (username === "" || email === "") {
     throw new ApiError(404, "email or username is must required for login");
   }
-  // find user based on userName or email
+  // find user based on username or email
   const user = await User.findOne({
-    $or: [{ userName }, { email }],
+    $or: [{ username }, { email }],
   });
   console.log(user);
   // if user did not found throw an ApiError

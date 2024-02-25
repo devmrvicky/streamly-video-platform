@@ -1,5 +1,14 @@
 import { GoHome, GoHomeFill } from "react-icons/go";
 import CostumeNavLink from "../custom/CustomNavLink";
+import { shortsIcon, shortsFillIcon } from "@/assets";
+import { GoHistory } from "react-icons/go";
+import { LuHistory } from "react-icons/lu";
+import {
+  MdExplore,
+  MdOutlineExplore,
+  MdOutlineVideoLibrary,
+  MdVideoLibrary,
+} from "react-icons/md";
 
 const Aside = () => {
   const menus = [
@@ -11,27 +20,27 @@ const Aside = () => {
     },
     {
       name: "Shorts",
-      path: "/",
-      icon: <GoHome className="w-6 h-6" />,
-      fillIcon: <GoHomeFill className="w-6 h-6" />,
+      path: "/shorts",
+      icon: shortsIcon,
+      fillIcon: shortsFillIcon,
     },
     {
       name: "History",
-      path: "/",
-      icon: <GoHome className="w-6 h-6" />,
-      fillIcon: <GoHomeFill className="w-6 h-6" />,
+      path: "/history",
+      icon: <GoHistory className="w-6 h-6" />,
+      fillIcon: <LuHistory className="w-6 h-6" />,
     },
     {
       name: "Library",
-      path: "/",
-      icon: <GoHome className="w-6 h-6" />,
-      fillIcon: <GoHomeFill className="w-6 h-6" />,
+      path: "/library",
+      icon: <MdOutlineVideoLibrary className="w-6 h-6" />,
+      fillIcon: <MdVideoLibrary className="w-6 h-6" />,
     },
     {
       name: "Explore",
-      path: "/",
-      icon: <GoHome className="w-6 h-6" />,
-      fillIcon: <GoHomeFill className="w-6 h-6" />,
+      path: "/explore",
+      icon: <MdOutlineExplore className="w-6 h-6" />,
+      fillIcon: <MdExplore className="w-6 h-6" />,
     },
   ];
 

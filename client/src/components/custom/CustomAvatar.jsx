@@ -12,9 +12,13 @@ const CustomAvatar = ({ imgSrc, name }) => {
     }
   });
   return (
-    <Avatar>
+    <Avatar className="w-full h-full">
       <AvatarImage
-        src={`${imgSrc ? imgSrc : "https://github.com/shadcn.png"}`}
+        src={`${
+          imgSrc
+            ? imgSrc
+            : "https://lh3.googleusercontent.com/-O8Cobxb-AqQ/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkn0XwyPfQm7zkQXDRB3nbvnfpqscw/s128-c/photo.jpg"
+        }`}
       />
       <AvatarFallback>{fallback}</AvatarFallback>
     </Avatar>

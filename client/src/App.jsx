@@ -3,6 +3,7 @@ import api from "./axios/api";
 import RegisterForm from "./components/form/RegisterForm";
 import Nav from "./components/nav/Nav";
 import Aside from "./components/aside/Aside";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const handleClick = async () => {
@@ -18,6 +19,7 @@ function App() {
       <Nav />
       <Aside />
       <Outlet />
+      <Toaster />
     </div>
   );
 }
