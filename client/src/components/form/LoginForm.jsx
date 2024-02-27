@@ -9,17 +9,15 @@ import AlertDestructive from "../custom/AlertDestructive";
 import { useToast } from "../ui/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginPending, loginSuccess } from "@/redux/features";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
-
   const { loading, error } = useSelector((store) => store.user);
 
   const form = useForm();
   const { toast } = useToast();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (data) => {
     try {
@@ -35,6 +33,7 @@ const LoginForm = () => {
       });
       dispatch(loginSuccess(res.data));
       console.log(res);
+      navigate("/");
     } catch (error) {
       console.log(error);
       dispatch(

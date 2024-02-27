@@ -12,8 +12,9 @@ import RegisterForm from "./components/form/RegisterForm.jsx";
 import { Explore, History, Home, Shorts, Library } from "@/components/pages";
 import ContentLayout from "./components/layout/ContentLayout.jsx";
 import LoginForm from "./components/form/LoginForm.jsx";
-import store from "./redux/store.js";
+import store, { persistor } from "./redux/store.js";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -84,10 +85,12 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
-    </Provider>
+    <PersistGate persistor={persistor}>
+      <Provider store={store}>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
+      </Provider>
+    </PersistGate>
   </React.StrictMode>
 );

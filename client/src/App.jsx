@@ -4,16 +4,16 @@ import RegisterForm from "./components/form/RegisterForm";
 import Nav from "./components/nav/Nav";
 import Aside from "./components/aside/Aside";
 import { Toaster } from "./components/ui/toaster";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function App() {
-  const handleClick = async () => {
-    try {
-      const res = await api.get("http://localhost:8000/get");
-      console.log(res);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  const { currentUser } = useSelector((store) => store.user);
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, []);
+
   return (
     <div>
       <Nav />
