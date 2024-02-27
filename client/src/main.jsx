@@ -11,6 +11,9 @@ import {
 import RegisterForm from "./components/form/RegisterForm.jsx";
 import { Explore, History, Home, Shorts, Library } from "@/components/pages";
 import ContentLayout from "./components/layout/ContentLayout.jsx";
+import LoginForm from "./components/form/LoginForm.jsx";
+import store from "./redux/store.js";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,6 +69,14 @@ const router = createBrowserRouter(
             </ContentLayout>
           }
         />
+        <Route
+          path="/user/login"
+          element={
+            <ContentLayout>
+              <LoginForm />
+            </ContentLayout>
+          }
+        />
       </Route>
     </Route>
   )
@@ -73,8 +84,10 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );

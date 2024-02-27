@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
+import { avatarImg } from "@/assets";
 
 const CustomAvatar = ({ imgSrc, name }) => {
   const [fallback, setFallback] = useState("CN");
@@ -13,13 +14,7 @@ const CustomAvatar = ({ imgSrc, name }) => {
   });
   return (
     <Avatar className="w-full h-full">
-      <AvatarImage
-        src={`${
-          imgSrc
-            ? imgSrc
-            : "https://lh3.googleusercontent.com/-O8Cobxb-AqQ/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkn0XwyPfQm7zkQXDRB3nbvnfpqscw/s128-c/photo.jpg"
-        }`}
-      />
+      <AvatarImage src={`${imgSrc ? imgSrc : avatarImg}`} />
       <AvatarFallback>{fallback}</AvatarFallback>
     </Avatar>
   );

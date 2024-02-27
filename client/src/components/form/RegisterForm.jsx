@@ -19,6 +19,7 @@ import { Input } from "../ui/input";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { uploadIcon } from "@/assets";
 import { useToast } from "../ui/use-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [error, setError] = useState(false);
@@ -29,15 +30,9 @@ const RegisterForm = () => {
   const [avatarPrev, setAvatarPrev] = useState("");
 
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const form = useForm({
-    defaultValues: {
-      fullName: "Vikash kumar",
-      username: "@vickyK.",
-      email: "vikash@gmail.com",
-      password: "12345678",
-    },
-  });
+  const form = useForm();
 
   const handleChange = (e) => {
     const fileData = e.target.files[0];
@@ -47,6 +42,8 @@ const RegisterForm = () => {
 
   const handleLogin = async ({ fullName, username, email, password }) => {
     try {
+      console.log({ fullName, username, email, password });
+      // return;
       const formData = new FormData();
       formData.append("fullName", fullName);
       formData.append("username", username);
@@ -56,26 +53,24 @@ const RegisterForm = () => {
       // return;
       setLoading(true);
       setError(false);
-      setErrorMessage("");
+      setErrorMessage({ title: "", message: "" });
       const res = await api.post("/users/register", formData, {
-        // timeout: 5000,
-        // timeoutErrorMessage: "sorry time out",
-        // validateStatus: (status) => status <= 500,
+        timeout: 15000,
+        timeoutErrorMessage: "sorry time out",
       });
       console.log(res);
       toast({
         title: res.successText,
         description: res.data.message,
       });
+      navigate("/users/login");
     } catch (error) {
-      console.log(error.name);
-      console.log(error.message);
-      console.log(error.code);
-      console.log(error.status);
-      console.log(error.stack);
-      console.log(error.config);
+      console.log(error);
       setError(true);
-      setErrorMessage(error.message);
+      setErrorMessage({
+        title: error?.response?.statusText,
+        message: error?.response ? error.response?.data : error.message,
+      });
     } finally {
       setLoading(false);
     }
@@ -83,14 +78,12 @@ const RegisterForm = () => {
 
   useEffect(() => {
     setError(false);
-    setErrorMessage("");
-    // setTimeout(() => {
-    // }, [1000]);
+    setErrorMessage({ title: "", message: "" });
   }, []);
 
   return (
     <Form {...form}>
-      {error && <AlertDestructive message={errorMessage} />}
+      {error && <AlertDestructive {...errorMessage} />}
       <form
         action=""
         onSubmit={form.handleSubmit(handleLogin)}
@@ -163,6 +156,12 @@ const RegisterForm = () => {
           placeholder="********"
         />
         <SubmitButton loading={loading} btnText="Register" />
+        <p className="text-sm py-3 text-zinc-700 hover:text-zinc-800">
+          I have already registered.{" "}
+          <Link to="/user/login" className="hover:underline pb-1">
+            Login in
+          </Link>
+        </p>
       </form>
     </Form>
   );
