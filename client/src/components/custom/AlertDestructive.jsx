@@ -4,6 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useEffect, useState } from "react";
 
 const getErrorMsg = (htmlString) => {
+  if (!htmlString.includes("<pre>")) return htmlString;
   // Find the position of <pre> and <br/> tags
   const startIndex = htmlString.indexOf("<pre>") + "<pre>".length;
   const endIndex = htmlString.indexOf("<br>");
@@ -16,7 +17,6 @@ const AlertDestructive = ({ title, message = "something is wrong" }) => {
   const [errorMsg, setErrorMsg] = useState(message);
 
   useEffect(() => {
-    if (!message.includes("<pre>")) return;
     setErrorMsg(getErrorMsg(message));
   }, [message]);
 
@@ -30,3 +30,4 @@ const AlertDestructive = ({ title, message = "something is wrong" }) => {
 };
 
 export default AlertDestructive;
+export { getErrorMsg };

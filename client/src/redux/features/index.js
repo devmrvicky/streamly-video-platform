@@ -1,3 +1,3 @@
-import userReducer, {loginPending, loginSuccess, loginFailure} from './userSlice'
+import userReducer, {loginPending, loginSuccess, loginFailure, logoutSuccess} from './userSlice'
 
-export {userReducer, loginPending, loginSuccess, loginFailure}
+export {userReducer, loginPending, loginSuccess, loginFailure, logoutSuccess}

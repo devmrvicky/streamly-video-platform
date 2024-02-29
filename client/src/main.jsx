@@ -12,7 +12,7 @@ import RegisterForm from "./components/form/RegisterForm.jsx";
 import { Explore, History, Home, Shorts, Library } from "@/components/pages";
 import ContentLayout from "./components/layout/ContentLayout.jsx";
 import LoginForm from "./components/form/LoginForm.jsx";
-import store, { persistor } from "./redux/store.js";
+import store, { persistor } from "./redux/store/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 

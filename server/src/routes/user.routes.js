@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  registerWithGoogle,
   loginUser,
   logoutUser,
   refreshAccessToken,
@@ -18,6 +19,7 @@ router.route("/register").post(
   ]),
   registerUser,
 );
+router.route('/google-auth').post(registerWithGoogle)
 
 // login user route
 router.route("/login").post(loginUser);

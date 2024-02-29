@@ -20,6 +20,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { uploadIcon } from "@/assets";
 import { useToast } from "../ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleAuthBtn from "../OAuth/GoogleAuthBtn";
 
 const RegisterForm = () => {
   const [error, setError] = useState(false);
@@ -87,7 +88,7 @@ const RegisterForm = () => {
       <form
         action=""
         onSubmit={form.handleSubmit(handleLogin)}
-        className="max-w-[600px] w-full mx-auto flex flex-col gap-3"
+        className="w-full flex flex-col gap-3"
       >
         <div className="profile relative flex flex-col gap-3 items-center justify-center py-3">
           <FormField
@@ -156,13 +157,19 @@ const RegisterForm = () => {
           placeholder="********"
         />
         <SubmitButton loading={loading} btnText="Register" />
+      </form>
+      <div className="w-full h-[1px] my-4 bg-zinc-500 flex items-center justify-center">
+        <span className="bg-[#FCFCFD] p-1">or</span>
+      </div>
+      <div className="w-full flex flex-col">
+        <GoogleAuthBtn btnText="register with google" />
         <p className="text-sm py-3 text-zinc-700 hover:text-zinc-800">
           I have already registered.{" "}
           <Link to="/user/login" className="hover:underline pb-1">
             Login in
           </Link>
         </p>
-      </form>
+      </div>
     </Form>
   );
 };

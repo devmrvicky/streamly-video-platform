@@ -6,10 +6,11 @@ const CustomAvatar = ({ imgSrc, name }) => {
   const [fallback, setFallback] = useState("CN");
   useEffect(() => {
     if (!name) return;
-    if (name.length < 2) {
-      setFallback(name[0].toUpperCase());
+    const nameArr = name.split(" ");
+    if (nameArr.length < 2) {
+      setFallback(nameArr[0][0].toUpperCase());
     } else {
-      setFallback((name.split(" ")[0] + name.split(" ")[1]).toUpperCase());
+      setFallback((nameArr[0][0] + nameArr[1][0]).toUpperCase());
     }
   });
   return (
