@@ -5,6 +5,7 @@ import {
   logoutUser,
   refreshAccessToken,
   registerUser,
+  loginWithGoogle,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -19,10 +20,11 @@ router.route("/register").post(
   ]),
   registerUser,
 );
-router.route('/google-auth').post(registerWithGoogle)
+router.route("/google-auth-registration").post(registerWithGoogle);
 
 // login user route
 router.route("/login").post(loginUser);
+router.route("/google-auth-login").post(loginWithGoogle);
 
 // secured route
 // logout user route

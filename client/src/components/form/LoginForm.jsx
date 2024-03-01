@@ -1,8 +1,6 @@
 import { Form } from "@/components/ui/form";
-import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomFormField from "../custom/CustomFormField";
-import { Button } from "../ui/button";
 import SubmitButton from "../buttons/SubmitButton";
 import api from "@/axios/api";
 import AlertDestructive from "../custom/AlertDestructive";
@@ -44,6 +42,25 @@ const LoginForm = () => {
     }
   };
 
+  const loginWithGoogle = async () => {
+    try {
+      const res = await handleGoogleAuth("/users/google-auth-login");
+      console.log(res);
+      toast({
+        title: res.successText,
+        description: res.data.message,
+      });
+      dispatch(loginSuccess(res.data));
+      navigate("/");
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+      toast({
+        variant: "destructive",
+        description: error.message,
+      });
+    }
+  };
+
   return (
     <Form {...form}>
       {error && <AlertDestructive {...error} />}
@@ -76,11 +93,14 @@ const LoginForm = () => {
         <span className="bg-[#FCFCFD] p-1">or</span>
       </div>
       <div className="w-full flex flex-col">
-        <GoogleAuthBtn btnText="login with google" />
+        <GoogleAuthBtn
+          btnText="login with google"
+          handleGoogleAuth={loginWithGoogle}
+        />
         <p className="text-sm py-3 text-zinc-700 hover:text-zinc-800">
           I don't have account.{" "}
           <Link to="/user/register" className="hover:underline pb-1">
-            Register in
+            Registration
           </Link>
         </p>
       </div>

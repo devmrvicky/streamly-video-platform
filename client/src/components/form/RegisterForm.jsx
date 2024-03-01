@@ -9,18 +9,18 @@ import {
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomFormField from "../custom/CustomFormField";
-import { Button } from "../ui/button";
 import CustomAvatar from "../custom/CustomAvatar";
 import AlertDestructive from "../custom/AlertDestructive";
 import api from "@/axios/api";
 import SubmitButton from "../buttons/SubmitButton";
-import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { MdOutlineFileUpload } from "react-icons/md";
 import { uploadIcon } from "@/assets";
 import { useToast } from "../ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleAuthBtn from "../OAuth/GoogleAuthBtn";
+import { handleGoogleAuth } from "../OAuth/googleAuth";
+import { useDispatch } from "react-redux";
+import { loginFailure } from "@/redux/features";
 
 const RegisterForm = () => {
   const [error, setError] = useState(false);
@@ -32,6 +32,7 @@ const RegisterForm = () => {
 
   const { toast } = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const form = useForm();
 
@@ -76,6 +77,57 @@ const RegisterForm = () => {
       setLoading(false);
     }
   };
+
+  // registration with google account
+  const registrationWithGoogle = async () => {
+    try {
+      const res = await handleGoogleAuth("/users/google-auth-registration");
+      console.log(res);
+      toast({
+        title: res.successText,
+        description: res.data.message,
+      });
+      dispatch(loginSuccess(res.data));
+      navigate("/");
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+      toast({
+        variant: "destructive",
+        description: error.message,
+      });
+    }
+  };
+  // const handleGoogleAuth = async () => {
+  //   console.log(auth);
+  //   const provider = new GoogleAuthProvider();
+  //   provider.setCustomParameters({ prompt: "select_account" });
+  //   try {
+  //     const resultsFromGoogle = await signInWithPopup(auth, provider);
+  //     const { displayName, email, photoURL } = resultsFromGoogle.user;
+  //     const res = await api.post(
+  //       "/users/google-auth",
+  //       { displayName, email, photoURL },
+  //       {
+  //         timeout: 60000,
+  //         timeoutErrorMessage: "sorry time out",
+  //       }
+  //     );
+  //     console.log(res);
+  //     toast({
+  //       title: res.successText,
+  //       description: res.data.message,
+  //     });
+  //     dispatch(loginSuccess(res.data));
+  //     navigate("/");
+  //   } catch (error) {
+  //     toast({
+  //       variant: "destructive",
+  //       description: getErrorMsg(
+  //         error?.response ? error.response?.data : error.message
+  //       ),
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     setError(false);
@@ -162,7 +214,10 @@ const RegisterForm = () => {
         <span className="bg-[#FCFCFD] p-1">or</span>
       </div>
       <div className="w-full flex flex-col">
-        <GoogleAuthBtn btnText="register with google" />
+        <GoogleAuthBtn
+          btnText="register with google"
+          handleGoogleAuth={registrationWithGoogle}
+        />
         <p className="text-sm py-3 text-zinc-700 hover:text-zinc-800">
           I have already registered.{" "}
           <Link to="/user/login" className="hover:underline pb-1">

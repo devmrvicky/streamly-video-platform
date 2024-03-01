@@ -16,11 +16,11 @@ const LogoutBtn = () => {
   const handleLogout = async () => {
     try {
       setLoading(true);
-      const res = await api.post("/users/logout");
+      // const res = await api.post("/users/logout");
       dispatch(logoutSuccess());
-      console.log(res);
+      // console.log(res);
       toast({
-        description: res.data.message,
+        description: "user logout successfully",
       });
     } catch (error) {
       // console.log(error);

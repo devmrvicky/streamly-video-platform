@@ -147,16 +147,21 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 // google auth
 const registerWithGoogle = asyncHandler(async (req, res) => {
-  const {displayName, email, photoURL} = req.body;
-  const avatar = photoURL ? photoURL : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
-  if([displayName, email, avatar].some(field => field.trim() === "")){
+  const { displayName, email, photoURL } = req.body;
+  const avatar = photoURL
+    ? photoURL
+    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
+  if ([displayName, email, avatar].some((field) => field.trim() === "")) {
     throw new ApiError(400, "All fields are required");
   }
-  const userAlreadyExits = await User.findOne({email})
-  if(userAlreadyExits){
-    throw new ApiError(400, "user already exits with this email!")
+  const userAlreadyExits = await User.findOne({ email });
+  if (userAlreadyExits) {
+    throw new ApiError(400, "user already exits with this email!");
   }
-  const username = `@${displayName.split(" ").join("").toLowerCase()}${Math.random().toString(36).slice(-8)}`
+  const username = `@${displayName
+    .split(" ")
+    .join("")
+    .toLowerCase()}${Math.random().toString(36).slice(-8)}`;
   const password = username;
   const user = await User.create({
     fullName: displayName,
@@ -164,8 +169,8 @@ const registerWithGoogle = asyncHandler(async (req, res) => {
     email,
     password,
     avatar,
-    coverImg: ""
-  })
+    coverImg: "",
+  });
   // generate refreshToken and accessToken
   const { refreshToken, accessToken } =
     await generateRefreshAndAccessToken(user);
@@ -191,7 +196,44 @@ const registerWithGoogle = asyncHandler(async (req, res) => {
         "user created successfully",
       ),
     );
-})
+});
+// login with google auth
+const loginWithGoogle = asyncHandler(async (req, res) => {
+  // password, email or username
+  const { email } = req.body;
+  if (email === "") {
+    throw new ApiError(400, "email is must required for login with google");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(404, "user doest not find with this email");
+  }
+  // generate refreshToken and accessToken
+  const { refreshToken, accessToken } =
+    await generateRefreshAndAccessToken(user);
+  // get loggedInUser data
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshToken",
+  );
+
+  // send cookies and response
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .cookie("refreshToken", refreshToken, options)
+    .cookie("accessToken", accessToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        { user: loggedInUser, accessToken, refreshToken },
+        "user logged in successfully",
+      ),
+    );
+});
 
 // refresh accessToken
 const refreshAccessToken = asyncHandler(async (req, res) => {
@@ -237,4 +279,11 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, logoutUser, registerWithGoogle, refreshAccessToken };
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  registerWithGoogle,
+  loginWithGoogle,
+  refreshAccessToken,
+};
