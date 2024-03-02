@@ -6,13 +6,14 @@ import Aside from "./components/aside/Aside";
 import { Toaster } from "./components/ui/toaster";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import ContentLayout from "./components/layout/ContentLayout";
 
 function App() {
   const { currentUser } = useSelector((store) => store.user);
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, []);
+  // useEffect(() => {
+  //   console.log(currentUser);
+  // }, []);
 
   return (
     <div className="h-full">

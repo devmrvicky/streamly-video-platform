@@ -1,9 +1,7 @@
-import React from "react";
-
-const ContentLayout = ({ children }) => {
+const ContentLayout = ({ children, maxWidth = "max-w-[600px]" }) => {
   return (
     <div className=" h-full ml-[200px] mt-[80px] p-3 bg-zinc-200/10 border-t">
-      <div className="max-w-[600px] w-full mx-auto">{children}</div>
+      <div className={`${maxWidth} w-full mx-auto`}>{children}</div>
     </div>
   );
 };
