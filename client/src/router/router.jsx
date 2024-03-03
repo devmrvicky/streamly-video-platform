@@ -8,6 +8,7 @@ import {
   Home,
   Library,
   PageNotFound,
+  Setting,
   Shorts,
 } from "@/components/pages";
 import {
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
         <Route path="/explore" element={<Explore />} />
         <Route path="/history" element={<History />} />
         <Route path="/library" element={<Library />} />
+        <Route path="/setting" element={<Setting />} />
         {/* auth */}
         <Route path="/user/register" element={<RegisterForm />} />
         <Route path="/user/login" element={<LoginForm />} />

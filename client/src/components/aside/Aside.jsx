@@ -68,7 +68,7 @@ const Aside = () => {
     <aside
       className={`fixed top-20 left-0 ${
         !asideCollapse ? "w-[60px]" : "w-[200px]"
-      } border-l bg-white h-full z-20 border-r transition-all`}
+      } border-l bg-white h-full z-40 border-r border-t transition-all`}
     >
       <div className="menus flex flex-col gap-3">
         {menus.map((menu) => (
@@ -80,7 +80,8 @@ const Aside = () => {
             } py-3 text-xl rounded-md flex items-center gap-3 md:w-auto w-12 max-[400px]:h-12 max-[400px]:rounded-full max-[400px]:justify-center`}
             activeClasses={`dark:text-black bg-zinc-200 `}
             noneActiveClasses={`hover:dark:text-black hover:bg-zinc-200`}
-            iconClass={`${!asideCollapse ? "hidden" : "md:block hidden"}`}
+            iconTextClasses={`${!asideCollapse ? "hidden" : "md:block hidden"}`}
+            iconClass={`${!asideCollapse ? "justify-center" : ""}`}
           />
         ))}
         {status && (
@@ -95,7 +96,10 @@ const Aside = () => {
                 } py-3 text-xl rounded-md flex items-center gap-3 md:w-auto w-12 max-[400px]:h-12 max-[400px]:rounded-full max-[400px]:justify-center`}
                 activeClasses={`dark:text-black bg-zinc-200 `}
                 noneActiveClasses={`hover:dark:text-black hover:bg-zinc-200`}
-                iconClass={`${!asideCollapse ? "hidden" : "md:block hidden"}`}
+                iconTextClasses={`${
+                  !asideCollapse ? "hidden" : "md:block hidden"
+                }`}
+                iconClass={`${!asideCollapse ? "justify-center" : ""}`}
               />
             ))}
           </>

@@ -8,6 +8,7 @@ const CostumeNavLink = ({
   icon,
   fillIcon,
   iconClass = "",
+  iconTextClasses = "",
   className,
   activeClasses,
   noneActiveClasses,
@@ -25,16 +26,14 @@ const CostumeNavLink = ({
     >
       {({ isActive }) =>
         isActive ? (
-          <div className={`"flex-1 gap-3 flex items-center justify-center`}>
-            {fillIcon} <span className={`${iconClass}`}>{name}</span>
+          <div
+            className={`"flex-1 gap-3 flex items-center justify-center ${iconClass}`}
+          >
+            {fillIcon} <span className={`${iconTextClasses}`}>{name}</span>
           </div>
         ) : (
-          <div
-            className={`flex-1 flex gap-3 items-center ${
-              !asideCollapse ? "justify-center" : ""
-            }`}
-          >
-            {icon} <span className={`${iconClass}`}>{name}</span>
+          <div className={`flex-1 flex gap-3 items-center ${iconClass}`}>
+            {icon} <span className={`${iconTextClasses}`}>{name}</span>
           </div>
         )
       }

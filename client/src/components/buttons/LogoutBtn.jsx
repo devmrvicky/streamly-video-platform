@@ -8,10 +8,12 @@ import { useToast } from "../ui/use-toast";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import { getErrorMsg } from "../custom/AlertDestructive";
 import { BsBoxArrowRight } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const LogoutBtn = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const handleLogout = async () => {
     try {
@@ -22,6 +24,7 @@ const LogoutBtn = () => {
       toast({
         description: "user logout successfully",
       });
+      navigate("/");
     } catch (error) {
       // console.log(error);
       toast({
