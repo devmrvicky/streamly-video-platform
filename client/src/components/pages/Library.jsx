@@ -9,7 +9,7 @@ const Library = () => {
   console.log(currentUser.data.user);
   return (
     <div className="flex w-full h-full items-center justify-center">
-      <ContentLayout maxWidth="max-w-[1000px]">
+      <ContentLayout maxWidth="max-w-[1000px]" className="w-full">
         {status ? (
           <div className="w-full">
             <UserProfile {...currentUser.data.user} />

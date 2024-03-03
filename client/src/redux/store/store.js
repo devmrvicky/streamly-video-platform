@@ -1,10 +1,11 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { userReducer } from "../features";
+import { pageReducer, userReducer } from "../features";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 // import
 const rootReducer = combineReducers({
   user: userReducer,
+  page: pageReducer,
 });
 
 const persistConfig = {

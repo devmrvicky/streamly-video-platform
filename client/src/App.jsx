@@ -16,7 +16,7 @@ function App() {
   // }, []);
 
   return (
-    <div className="h-full">
+    <div className="min-h-screen">
       <Nav />
       <Aside />
       <Outlet />
